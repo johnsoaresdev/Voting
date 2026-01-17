@@ -1,52 +1,108 @@
-ui Voting System (Move 2024)
+# Sui Voting System (Move 2024)
 
-A decentralized e seguro smart contract de votação construído na Sui Blockchain, aproveitando os recursos mais recentes da Move 2024 edition. Este sistema permite aos usuários criar e participar de enquetes simples e on-chain.
+A decentralized voting smart contract built on the **Sui Blockchain**, implemented using the **Move 2024 edition**.
 
-Principais Recursos
+This project demonstrates core Sui concepts such as **shared objects**, **on-chain events**, and **CLI-based interaction**, making it ideal for learning and portfolio purposes.
 
-•
-Acessibilidade Global (Shared Objects): Os objetos de enquete são criados como Shared Objects usando transfer::share_object, permitindo que qualquer usuário na rede interaja com eles sem a necessidade de permissões específicas de propriedade ou transferência.
+---
 
-•
-Rastreamento em Tempo Real (On-chain Events): Emite um VoteEvent para cada voto registrado, permitindo que aplicações off-chain e exploradores rastreiem a atividade de votação em tempo real.
+## ✨ Features
 
-•
-Enquetes Customizáveis: Permite a criação de enquetes personalizadas com uma pergunta e duas opções de voto predefinidas.
+- **Shared Objects**
+  - Polls are created as shared objects using `transfer::share_object`, enabling global access.
 
-Interação via CLI (Sui Client)
+- **On-chain Events**
+  - Emits a `VoteEvent` on every vote, allowing off-chain indexing and real-time tracking.
 
-Para interagir com o contrato, você precisará do sui client configurado. Substitua <PACKAGE_ID>, <POLL_OBJECT_ID> e <1_OR_2> pelos valores apropriados.
+- **Simple & Dynamic Polls**
+  - Create polls with a question and two customizable options.
 
-1. Criar uma Enquete
+- **Move 2024 Edition**
+  - Uses the latest Move language edition supported by Sui.
 
-Cria um novo objeto de enquete (Poll) na rede.
+---
 
-Bash
+## 📦 Smart Contract Overview
 
+Each poll contains:
+- A question
+- Two voting options
+- Vote counters for each option
 
-sui client call --package <PACKAGE_ID> --module voting --function create_poll --args "Sua Pergunta" "Opção A" "Opção B" --gas-budget 10000000
+Anyone can:
+- Create a poll
+- Vote on an existing poll
 
+---
 
-2. Registrar um Voto
+## 🛠 How to Interact (Sui CLI)
 
-Registra um voto na enquete especificada. O valor <1_OR_2> deve ser 1 para a primeira opção ou 2 para a segunda.
+### 1️⃣ Create a Poll
 
-Bash
+```bash
+sui client call \
+  --package <PACKAGE_ID> \
+  --module voting \
+  --function create_poll \
+  --args "Your Question" "Option A" "Option B" \
+  --gas-budget 10000000
+```
 
+This command creates a new poll and shares it on-chain.
 
-sui client call --package <PACKAGE_ID> --module voting --function vote --args <POLL_OBJECT_ID> <1_OR_2> --gas-budget 10000000
+---
 
+### 2️⃣ Cast a Vote
 
-Detalhes do Contrato
+```bash
+sui client call \
+  --package <PACKAGE_ID> \
+  --module voting \
+  --function vote \
+  --args <POLL_OBJECT_ID> <1_OR_2> \
+  --gas-budget 10000000
+```
 
-Endereço de Implantação (Mainnet)
+- Use `1` to vote for **Option A**
+- Use `2` to vote for **Option B**
 
-Este é o ID do pacote do contrato implantado na rede principal (Mainnet).
+Each vote emits a `VoteEvent`.
 
-Descrição
-Valor
-Package ID
+---
+
+## 📡 Events
+
+### VoteEvent
+Emitted every time a vote is cast.
+
+Example use cases:
+- Off-chain analytics
+- Frontend real-time updates
+- Indexing with Sui indexers
+
+---
+
+## 🚀 Deployment (Mainnet)
+
+- **Network:** Sui Mainnet  
+- **Package ID:**  
+```
 0x780f03675fec5aa405133cb7629d25f355f186951453b353ed4337882f21c75c
+```
 
+---
 
+## 📚 Learning Goals
 
+This project was built to practice:
+- Shared objects
+- Transaction entry functions
+- Event emission
+- CLI-based interaction
+- Clean Move module design
+
+---
+
+## 📄 License
+
+MIT License
